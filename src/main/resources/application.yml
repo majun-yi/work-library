@@ -1,0 +1,18 @@
+#主机ip
+ip: 192.168.10.117
+
+#端口
+server:
+  port: 8888
+
+#mongo数据库连接
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/work_library
+      #驼峰转下划线
+      field-naming-strategy: org.springframework.data.mapping.model.SnakeCaseFieldNamingStrategy
+      #开启事务
+      transaction-enabled: false
+  application:
+    name: work-library
