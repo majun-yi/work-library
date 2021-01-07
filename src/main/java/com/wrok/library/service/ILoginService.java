@@ -8,6 +8,7 @@ import com.wrok.library.dto.RegisterDTO;
  * @Date 2021/1/6 17:43
  */
 public interface ILoginService {
+
     /**
      * @param username 用户名
      * @param password 密码
