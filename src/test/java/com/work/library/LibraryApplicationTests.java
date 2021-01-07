@@ -1,4 +1,4 @@
-package com.wrok.library;
+package com.work.library;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

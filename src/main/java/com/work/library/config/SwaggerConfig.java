@@ -1,4 +1,4 @@
-package com.wrok.library.config;
+package com.work.library.config;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +30,7 @@ public class SwaggerConfig {
                 .groupName("界面首页")
                 .select()
 //                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
-                .apis(RequestHandlerSelectors.basePackage("com.wrok.library.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.work.library.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

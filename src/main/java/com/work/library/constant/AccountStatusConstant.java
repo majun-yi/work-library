@@ -1,6 +1,6 @@
-package com.wrok.library.constant;
+package com.work.library.constant;
 
-import com.wrok.library.base.Dict;
+import com.work.library.base.Dict;
 
 /**
  * @Description 账号状态

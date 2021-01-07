@@ -1,4 +1,4 @@
-package com.wrok.library.controller;
+package com.work.library.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(tags = "首页服务")
 @RestController
-@RequestMapping("/home/")
+@RequestMapping("/library/")
 public class HomeController {
 
     @ApiOperation("首页测试")
