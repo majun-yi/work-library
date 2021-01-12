@@ -43,6 +43,15 @@ public class ResultVO {
     }
 
     /**
+     * 封装 结果集 和状态信息
+     */
+    public ResultVO(String result, Integer statusCode, String message) {
+        this.result = result;
+        this.statusCode = statusCode;
+        this.message = message;
+    }
+
+    /**
      * 初始 封装构造 成功情况
      */
     public static ResultVO buildResult(Object result) {

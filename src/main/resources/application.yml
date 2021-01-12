@@ -3,7 +3,7 @@ ip: 192.168.10.117
 
 #端口
 server:
-  port: 8888
+  port: 8887
 
 #mongo数据库连接
 spring:
