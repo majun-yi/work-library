@@ -1,17 +1,18 @@
-package com.wrok.library.service.impl;
+package com.work.library.service.impl;
 
-import com.wrok.library.dto.RegisterDTO;
-import com.wrok.library.entity.UserEntity;
-import com.wrok.library.repository.UserRepository;
-import com.wrok.library.service.ILoginService;
+import com.work.library.dto.home.RegisterDTO;
+import com.work.library.entity.UserEntity;
+import com.work.library.service.IHomeService;
+import com.work.library.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 /**
+ * @author Administrator
  * @Description TODO
  * @Date 2021/1/6 17:56
  */
 @Service
-public class LoginServiceImpl implements ILoginService {
+public class LoginServiceImpl implements IHomeService {
 
     private final UserRepository userRepository;
 
@@ -27,7 +28,11 @@ public class LoginServiceImpl implements ILoginService {
      */
     @Override
     public Boolean login(String username, String password) {
-        return null;
+        //通过账号密码查询
+        UserEntity userEntity = userRepository.findByUsernameAndPassword(username, password).orElse(null);
+        //若没有查到用户信息,则返回失败
+        if (null == userEntity) return Boolean.FALSE;
+        return Boolean.TRUE;
     }
 
     /**

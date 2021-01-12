@@ -1,4 +1,4 @@
-package com.wrok.library.dto;
+package com.work.library.dto.home;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -15,11 +15,11 @@ import javax.validation.constraints.NotEmpty;
 @ApiModel("注册参数")
 public class RegisterDTO {
 
-    @ApiModelProperty("用户名")
+    @ApiModelProperty("用户名1")
     @NotEmpty(message = "请输入用户名")
     private String username;
 
-    @ApiModelProperty("密码")
+    @ApiModelProperty("密码1")
     @NotEmpty(message = "请输入密码")
     private String password;
 }

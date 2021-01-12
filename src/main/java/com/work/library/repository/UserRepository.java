@@ -1,7 +1,9 @@
-package com.wrok.library.repository;
+package com.work.library.repository;
 
-import com.wrok.library.entity.UserEntity;
+import com.work.library.entity.UserEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import java.util.Optional;
 
 /**
  * @author Administrator
@@ -14,7 +16,14 @@ public interface UserRepository extends MongoRepository<UserEntity, String> {
     UserEntity findByUsernameAndPasswordAndStatus_Code(String username, String password, Integer statusCode);
 
     /**
+     * 通过用户名和密码查询用户信息
+     */
+    Optional<UserEntity> findByUsernameAndPassword(String username, String password);
+
+    /**
      * 查询用户名是否重复
      */
     boolean existsByUsername(String username);
+
+
 }

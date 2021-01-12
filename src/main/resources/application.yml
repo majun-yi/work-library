@@ -1,18 +1,18 @@
-#Ö÷»úip
+#ä¸»æœºip
 ip: 192.168.10.117
 
-#¶Ë¿Ú
+#ç«¯å£
 server:
-  port: 8888
+  port: 8887
 
-#mongoÊı¾İ¿âÁ¬½Ó
+#mongoæ•°æ®åº“è¿æ¥
 spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/work_library
-      #ÍÕ·å×ªÏÂ»®Ïß
+      #é©¼å³°è½¬ä¸‹åˆ’çº¿
       field-naming-strategy: org.springframework.data.mapping.model.SnakeCaseFieldNamingStrategy
-      #¿ªÆôÊÂÎñ
+      #å¼€å¯äº‹åŠ¡
       transaction-enabled: false
   application:
     name: work-library

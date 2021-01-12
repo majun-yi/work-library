@@ -1,4 +1,4 @@
-package com.wrok.library.base;
+package com.work.library.base;
 
 import lombok.Data;
 

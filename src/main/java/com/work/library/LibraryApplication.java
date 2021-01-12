@@ -1,4 +1,4 @@
-package com.wrok.library;
+package com.work.library;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

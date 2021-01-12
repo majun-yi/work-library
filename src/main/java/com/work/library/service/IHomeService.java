@@ -1,13 +1,13 @@
-package com.wrok.library.service;
+package com.work.library.service;
 
-import com.wrok.library.dto.RegisterDTO;
+import com.work.library.dto.home.RegisterDTO;
 
 /**
  * @author Administrator
  * @Description 登录业务
  * @Date 2021/1/6 17:43
  */
-public interface ILoginService {
+public interface IHomeService {
 
     /**
      * @param username 用户名

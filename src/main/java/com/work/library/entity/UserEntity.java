@@ -1,7 +1,7 @@
-package com.wrok.library.entity;
+package com.work.library.entity;
 
-import com.wrok.library.base.Dict;
-import com.wrok.library.constant.AccountStatusConstant;
+import com.work.library.base.Dict;
+import com.work.library.constant.AccountStatusConstant;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
