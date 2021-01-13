@@ -1,6 +1,7 @@
 package com.work.library.config;
 
 import com.work.library.constant.ResultConstant;
+import com.work.library.enums.ExceptionEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,5 +37,10 @@ public class ServiceException extends RuntimeException {
     public ServiceException(Integer statusCode, String message) {
         this.statusCode = statusCode;
         this.message = message;
+    }
+
+    public ServiceException(ExceptionEnum exception) {
+        this.statusCode = exception.getCode();
+        this.message = exception.getMessage();
     }
 }
