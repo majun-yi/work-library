@@ -1,7 +1,7 @@
 package com.work.library.entity;
 
 import com.work.library.constant.NumberConstant;
-import com.work.library.vo.EnglishQuery;
+import com.work.library.vo.english.EnglishQuery;
 import lombok.Data;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -89,5 +89,12 @@ public class EnglishEntity {
         Criteria criteria = new Criteria();
 
         return Query.query(criteria).with(Sort.by("create_time").descending());
+    }
+
+    /**
+     * +1 计数
+     */
+    public void counter() {
+        this.totalCount = (null == totalCount) ? 1 : totalCount++;
     }
 }

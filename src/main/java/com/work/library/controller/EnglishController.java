@@ -2,7 +2,7 @@ package com.work.library.controller;
 
 import com.work.library.dto.english.EnglishDTO;
 import com.work.library.service.IEnglishService;
-import com.work.library.vo.EnglishQuery;
+import com.work.library.vo.english.EnglishQuery;
 import com.work.library.vo.PageVO;
 import com.work.library.vo.english.EnglishListVO;
 import com.work.library.vo.english.EnglishVO;
@@ -60,5 +60,11 @@ public class EnglishController {
     @DeleteMapping("{id}")
     public Long delete(@PathVariable String id) {
         return englishService.delete(id);
+    }
+
+    @ApiOperation("收藏")
+    @PutMapping("collection")
+    public String collection(String id) {
+        return englishService.collection(id);
     }
 }

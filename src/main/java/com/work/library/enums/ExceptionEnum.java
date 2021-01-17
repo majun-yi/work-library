@@ -14,7 +14,8 @@ public enum ExceptionEnum {
     DATA_ID_MISS(4001, "数据主键丢失,请重试"),
     DATA_CREATE_FAILURE(4002, "糟糕,数据添加失败,请重试"),
     DATA_IS_NOT_FOUND(4003, "数据未找到,请重试"),
-
+    LOGIN_FAILURE(4004, "密码错误,请重新输入"),
+    NOT_THIS_USER(4005, "用户名不存在,请重新输入"),
     ;
     /**
      * 编码值

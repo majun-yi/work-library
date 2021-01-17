@@ -3,12 +3,11 @@ package com.work.library.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.mongodb.client.result.DeleteResult;
 import com.work.library.assebler.EnglishAssemble;
-import com.work.library.config.ServiceException;
 import com.work.library.dto.english.EnglishDTO;
 import com.work.library.entity.EnglishEntity;
 import com.work.library.enums.ExceptionEnum;
 import com.work.library.service.IEnglishService;
-import com.work.library.vo.EnglishQuery;
+import com.work.library.vo.english.EnglishQuery;
 import com.work.library.vo.PageVO;
 import com.work.library.vo.english.EnglishListVO;
 import com.work.library.vo.english.EnglishVO;
@@ -21,7 +20,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Administrator
@@ -59,10 +57,14 @@ public class EnglishServiceImpl implements IEnglishService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public EnglishVO get(String id) {
         EnglishEntity englishEntity = template.findById(id, EnglishEntity.class);
-        if (null == englishEntity) ExceptionEnum.DATA_IS_NOT_FOUND.throwException();
-        return englishAssemble.toVO(englishEntity);
+        //每次点击时触发 计数器,该内容查看次数+1
+        englishEntity.counter();
+        EnglishEntity entity = template.save(englishEntity);
+        if (null == entity) ExceptionEnum.DATA_IS_NOT_FOUND.throwException();
+        return englishAssemble.toVO(entity);
     }
 
     @Override
@@ -70,12 +72,32 @@ public class EnglishServiceImpl implements IEnglishService {
         Query query = EnglishEntity.newInstance().buildQuery(englishQuery);
         long count = template.count(query, EnglishEntity.class);
         List<EnglishEntity> englishEntities = template.find(query.with(PageRequest.of(page - 1, size)), EnglishEntity.class);
-        return englishAssemble.toListVO(englishEntities,count);
+        return englishAssemble.toListVO(englishEntities, count);
     }
 
     @Override
     public Long delete(String id) {
         DeleteResult result = template.remove(Query.query(Criteria.where("id").is(id)), EnglishEntity.class);
         return result.getDeletedCount();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public String collection(String id) {
+        EnglishEntity entity = this.getEntity(id);
+        //将数据设为收藏
+        entity.setFavorite(Boolean.TRUE);
+        EnglishEntity save = template.save(entity);
+        return save.getId();
+    }
+
+
+    /**
+     * 查询 数据
+     */
+    public EnglishEntity getEntity(String id) {
+        EnglishEntity entity = template.findById(id, EnglishEntity.class);
+        if (null == entity) ExceptionEnum.DATA_IS_NOT_FOUND.throwException();
+        return entity;
     }
 }

@@ -1,7 +1,7 @@
 package com.work.library.service;
 
 import com.work.library.dto.english.EnglishDTO;
-import com.work.library.vo.EnglishQuery;
+import com.work.library.vo.english.EnglishQuery;
 import com.work.library.vo.PageVO;
 import com.work.library.vo.english.EnglishListVO;
 import com.work.library.vo.english.EnglishVO;
@@ -48,4 +48,9 @@ public interface IEnglishService {
      * 删除
      */
     Long delete(String id);
+
+    /**
+     * 收藏
+     */
+    String collection(String id);
 }

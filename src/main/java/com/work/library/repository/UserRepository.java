@@ -21,7 +21,7 @@ public interface UserRepository extends MongoRepository<UserEntity, String> {
     Optional<UserEntity> findByUsernameAndPassword(String username, String password);
 
     /**
-     * 查询用户名是否重复
+     * 查询用户名是否重复 判断是否存在用户
      */
     boolean existsByUsername(String username);
 

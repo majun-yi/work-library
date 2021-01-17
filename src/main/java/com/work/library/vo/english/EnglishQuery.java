@@ -1,4 +1,4 @@
-package com.work.library.vo;
+package com.work.library.vo.english;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
