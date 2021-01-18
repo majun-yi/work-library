@@ -16,6 +16,7 @@ public enum ExceptionEnum {
     DATA_IS_NOT_FOUND(4003, "数据未找到,请重试"),
     LOGIN_FAILURE(4004, "密码错误,请重新输入"),
     NOT_THIS_USER(4005, "用户名不存在,请重新输入"),
+    LOGIN_EXPIRE(4006,"登录失效,请重新登录"),
     ;
     /**
      * 编码值

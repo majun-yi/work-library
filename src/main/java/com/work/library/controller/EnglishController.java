@@ -63,8 +63,8 @@ public class EnglishController {
     }
 
     @ApiOperation("收藏")
-    @PutMapping("collection")
-    public String collection(String id) {
+    @PutMapping("collection/{id}")
+    public String collection(@PathVariable String id) {
         return englishService.collection(id);
     }
 }

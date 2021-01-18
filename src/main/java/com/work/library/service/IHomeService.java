@@ -15,7 +15,7 @@ public interface IHomeService {
      * @return 登录结果
      * @description 登录功能
      */
-    Boolean login(String username, String password);
+    String login(String username, String password);
 
     /**
      * 注册

@@ -1,5 +1,6 @@
 package com.work.library.service.impl;
 
+import com.work.library.config.global.GlobalCache;
 import com.work.library.dto.home.RegisterDTO;
 import com.work.library.entity.UserEntity;
 import com.work.library.enums.ExceptionEnum;
@@ -28,15 +29,21 @@ public class LoginServiceImpl implements IHomeService {
      * @param password 密码
      */
     @Override
-    public Boolean login(String username, String password) {
+    public String login(String username, String password) {
         boolean existsByUsername = userRepository.existsByUsername(username);
         //判断用户名是否存在
         if (!existsByUsername) ExceptionEnum.NOT_THIS_USER.throwException();
+
         //通过账号密码查询
         UserEntity userEntity = userRepository.findByUsernameAndPassword(username, password).orElse(null);
+
         //若没有查到用户信息,则返回失败
         if (null == userEntity) ExceptionEnum.LOGIN_FAILURE.throwException();
-        return Boolean.TRUE;
+
+        //创建模拟token
+        GlobalCache.initToken(userEntity.getId(), userEntity.getId());
+
+        return GlobalCache.getToken(userEntity.getId());
     }
 
     /**
