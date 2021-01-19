@@ -26,4 +26,10 @@ public class PageVO<T> {
         this.count = count;
         return this;
     }
+
+    public PageVO<T> build(List<T> list) {
+        this.result = list;
+        return this;
+    }
+
 }
