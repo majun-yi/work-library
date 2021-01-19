@@ -1,5 +1,7 @@
 package com.work.library.entity;
 
+import cn.hutool.core.date.DateUtil;
+import com.work.library.vo.DiaryQuery;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.data.domain.Sort;
@@ -42,12 +44,20 @@ public class DiaryEntity {
     }
 
     /**
+     * 创建实例
+     */
+    public static DiaryEntity newInstance() {
+        return new DiaryEntity();
+    }
+
+    /**
      * 查询条件
      */
-    private Query buildQuery() {
+    public Query buildQuery(DiaryQuery diaryQuery) {
         Criteria criteria = new Criteria();
-        DiaryEntity entity = new DiaryEntity();
-
-        return Query.query(criteria).with(Sort.by("create_time").descending());
+        //查询本月的所有数据
+        criteria.andOperator(Criteria.where("create_time").gte(DateUtil.beginOfMonth(diaryQuery.getQueryDate())),
+                Criteria.where("create_time").lte(DateUtil.endOfMonth(diaryQuery.getQueryDate())));
+        return Query.query(criteria);
     }
 }
