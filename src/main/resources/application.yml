@@ -16,3 +16,10 @@ spring:
       transaction-enabled: false
   application:
     name: work-library
+
+  rabbitmq:
+    host: ${ip}
+    username: root
+    password: root
+    virtual-host: test
+    port: 5672

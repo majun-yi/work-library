@@ -4,9 +4,11 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.json.JSONUtil;
 import com.mongodb.client.result.DeleteResult;
 import com.work.library.LibraryApplication;
+import com.work.library.config.global.GlobalCache;
 import com.work.library.entity.DiaryEntity;
 import com.work.library.entity.EnglishEntity;
 import com.work.library.entity.UserEntity;
+import com.work.library.util.EncodeUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeanUtils;
@@ -76,5 +78,34 @@ public class englishTest {
 //        BeanUtil.copyProperties(diaryEntity, diaryEntity2);
         BeanUtils.copyProperties(diaryEntity, diaryEntity2);
         System.out.println(JSONUtil.toJsonStr(diaryEntity2));
+    }
+
+    @Test
+    public void testToken() {
+        String token = "testToken";
+        String token1 = GlobalCache.getToken(token);
+        System.out.println(token1);
+    }
+
+    @Test
+    public void testToken2() {
+        UserEntity entity = new UserEntity().setUsername("mjy").setPassword("123456");
+
+        String encodeMd5 = EncodeUtil.encodeMd5(entity.toString().getBytes());
+        System.out.println("md5: " + encodeMd5);
+    }
+
+    @Test
+    public void testToken4() {
+        String str = "123456";
+        String encodeMd5 = EncodeUtil.encodeMd5(str.getBytes());
+        for (int i = 0; i <100 ; i++) {
+
+            String encodeMd5_ = EncodeUtil.encodeMd5(str,"mjy");
+
+            System.out.println("md5: " + encodeMd5_);
+        }
+
+
     }
 }

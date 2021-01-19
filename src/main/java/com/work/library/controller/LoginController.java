@@ -1,5 +1,7 @@
 package com.work.library.controller;
 
+import cn.hutool.core.util.StrUtil;
+import com.work.library.config.global.GlobalCache;
 import com.work.library.dto.home.LoginDTO;
 import com.work.library.dto.home.RegisterDTO;
 import com.work.library.entity.UserEntity;
@@ -50,4 +52,11 @@ public class LoginController {
     public List<UserEntity> getUser() {
         return userRepository.findAll();
     }
+
+    @ApiOperation("验证登录是否有效")
+    @GetMapping("login/{token}")
+    public Boolean checkLogin(@PathVariable String token) {
+        return StrUtil.isNotBlank(GlobalCache.getToken(token)) ? Boolean.TRUE : Boolean.FALSE;
+    }
+
 }

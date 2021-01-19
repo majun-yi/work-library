@@ -3,6 +3,7 @@ package com.work.library.entity;
 import com.work.library.base.Dict;
 import com.work.library.constant.AccountStatusConstant;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.Date;
  */
 @Data
 @Document("spl_biz_user")
+@Accessors(chain = true)
 public class UserEntity {
     /**
      * 数据主键

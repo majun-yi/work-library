@@ -2,7 +2,9 @@ package com.work.library.config.global;
 
 import net.jodah.expiringmap.ExpirationPolicy;
 import net.jodah.expiringmap.ExpiringMap;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -10,6 +12,7 @@ import java.util.concurrent.TimeUnit;
  * @Description 项目暂时未引入redis, 引入一个可设置 过期时间的map工具,对用户的时效性进行验证
  * @Date 2021/1/17 17:57
  */
+@Component
 public class GlobalCache {
     /**
      * 设置一个全局的缓存中心容器
@@ -19,9 +22,9 @@ public class GlobalCache {
             //设置最大容量,超出后会挤出第一个数据
             .maxSize(100)
             //超时时间为一天
-            //.expiration(24, TimeUnit.HOURS)
-            //测试超时时间为10秒
-            .expiration(60, TimeUnit.SECONDS)
+            .expiration(24, TimeUnit.HOURS)
+            //测试超时时间为60秒
+//            .expiration(60, TimeUnit.SECONDS)
             //允许更新过期时间,不允许更新过期时间
             .variableExpiration()
             //ACCESSED:在CREATED策略基础上增加 在还没过期时get方法清零过期时间。
@@ -49,4 +52,8 @@ public class GlobalCache {
         map.remove(key);
     }
 
+    @PostConstruct
+    public void testToken() {
+        map.put("testToken", "testToken", 30, TimeUnit.DAYS);
+    }
 }

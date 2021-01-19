@@ -1,8 +1,6 @@
 package com.work.library.config.global;
 
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import com.work.library.controller.LoginController;
 import com.work.library.enums.ExceptionEnum;
 import com.work.library.util.IgnoreAuth;
 import org.springframework.web.method.HandlerMethod;
@@ -11,8 +9,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Administrator
@@ -32,11 +28,18 @@ public class AuthInterceptor<T> implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // 获取忽略 拦截处理代码
-        // 拦截处理代码
-//        HandlerMethod method = (HandlerMethod) handler;
-//        IgnoreAuth loginRequired = method.getMethodAnnotation(IgnoreAuth.class);
-//        if (null != loginRequired) return false;
+        //返回false拦截,true不拦截
+
+        //判断是否需要拦截
+        return this.getIgnoreInterceptor(request, handler);
+    }
+
+    /**
+     * 不拦截应用 或 场景 -> 添加 @IgnoreAuth 注解的不拦截
+     * 1.登录,注册 (无登录令牌)
+     * 2.登录令牌未过期的,不进行拦截
+     */
+    public boolean getIgnoreInterceptor(HttpServletRequest request, Object handler) {
         HandlerMethod method = null;
         if (handler instanceof HandlerMethod)
             method = (HandlerMethod) handler;
@@ -46,31 +49,26 @@ public class AuthInterceptor<T> implements HandlerInterceptor {
         else  //返回false拦截,true不拦截
             annotation = handler.getClass().getAnnotation(IgnoreAuth.class);
 
+        //若添加忽略拦截注解,可提前返回,无需校验令牌
         if (null != annotation) return true;
 
-        //验证登录状态
-        String token = request.getHeader("token");
-        String result = GlobalCache.getToken(token);
-        //若不存在,则抛出 登录失效 异常
-        if (StrUtil.isEmpty(result)) ExceptionEnum.LOGIN_EXPIRE.throwException();
-        //若存在, 则不进行拦截操作
-        if (StrUtil.isNotBlank(result)) return true;
-        //否则拦截所有的请求
+        //验证 登录是否有效
+        if (this.checkLogin(request)) return true;
         return false;
     }
 
     /**
-     * 获取类 和 方法上的 忽略注解
+     * 验证登录是否有效
      */
-    public List<IgnoreAuth> getAnnounceList(Object handler) {
-        List<IgnoreAuth> list = new ArrayList<>();
-        HandlerMethod method = (HandlerMethod) handler;
-        IgnoreAuth methodAnnotation = method.getMethodAnnotation(IgnoreAuth.class);
-        if (null != methodAnnotation) list.add(methodAnnotation);
+    private boolean checkLogin(HttpServletRequest request) {
+        //验证登录状态,获取请求头中的登录令牌
+        String token = request.getHeader("token");
+        String result = GlobalCache.getToken(token);
 
-        IgnoreAuth clazzAnnotation = handler.getClass().getAnnotation(IgnoreAuth.class);
-        if (null != clazzAnnotation) list.add(clazzAnnotation);
+        //若不存在,则抛出 登录失效 异常
+        if (StrUtil.isEmpty(result)) ExceptionEnum.LOGIN_EXPIRE.throwException();
 
-        return list;
+        //若存在, 则不进行拦截操作
+        return true;
     }
 }
